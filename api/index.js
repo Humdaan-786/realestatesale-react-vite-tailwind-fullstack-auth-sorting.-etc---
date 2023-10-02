@@ -24,3 +24,17 @@ app.use("/api/user",userRouter)
 
 
 app.use("/api/auth",authRouter)
+
+
+//creating an error middleawre so that we dont have to use try nad ccathc repedetly
+
+app.use((err,req,res,next)=>{
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Mongo server error";
+    
+    return res.status(statusCode).json({
+        "success":false,
+        statusCode,
+        message
+    });
+});
