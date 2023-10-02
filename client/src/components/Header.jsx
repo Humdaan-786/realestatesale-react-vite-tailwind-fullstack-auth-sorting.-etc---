@@ -10,10 +10,10 @@ export default function Header() {
         <span className='text-slate-500'>Raipur</span>
         <span className='text-slate-700'>Realtor</span>
       </h1>
-      <form className='bg-slate-100 p-3 flex items-center  rounded-lg '>
+      <form className='bg-slate-100 p-1 flex  items-center rounded-lg '>
       <input type='text' placeholder='Search...'
       //  sm: code.. if for small scxreen devices  
-      className='bg-transparent focus:outline-none w-50 sm: w-40'/>
+      className='bg-transparent focus:outline-none w-30 sm:w-64'/>
       <FaSearch className='text-slate-600 '/>
       </form>
       <ul className='flex gap-4'>
