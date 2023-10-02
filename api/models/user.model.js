@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose"
 // creating rules
 const userSchema = new mongoose.Schema({
@@ -16,7 +17,10 @@ const userSchema = new mongoose.Schema({
         required:true,
          
     }
-    },{timestamp:true});
+    },
+    {
+        timestamps:true
+    });
     
 //mogdb adds auto s i.e users
 const User = mongoose.model('User',userSchema);
