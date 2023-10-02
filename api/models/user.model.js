@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
          
     }
     },{timestamp:true});
+    
 //mogdb adds auto s i.e users
 const User = mongoose.model('User',userSchema);
 export default User;
