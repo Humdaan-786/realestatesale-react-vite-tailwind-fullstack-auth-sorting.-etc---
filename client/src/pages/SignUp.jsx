@@ -34,7 +34,7 @@ const handleSubmit = async (e)=>
   
       })
       const data= await res.json();
-      console.log(data);
+      // console.log(data);
       if(data.success===false)
       { 
         setLoading(false);
@@ -44,7 +44,7 @@ const handleSubmit = async (e)=>
       
     }
     catch (error) {
-      console.log(err.message)
+      console.log(error.message)
     }
     setLoading(false);
     setError(null);
@@ -61,7 +61,7 @@ const handleSubmit = async (e)=>
       <input className='border p-3 rounded-lg' onChange={handlechange} type='email' id='email'placeholder='email'/>
       <input className='border p-3 rounded-lg' onChange={handlechange} type='password' id='password'placeholder='password'/>
       <button className='border p-3 bg-slate-700 text-white rounded-lg hover:opacity-80 disabled:opacity-50'  disabled={loading} onChange={handlechange}  id='button'>SIGN-UP</button>
-      {loading ?'Loading':'Sign-Up'}
+      {/* {loading ?'Loading':'Sign-Up'} */}
     </form>
     <div className="flex gap-2 mt-5">
       <p>Have an account?</p>
