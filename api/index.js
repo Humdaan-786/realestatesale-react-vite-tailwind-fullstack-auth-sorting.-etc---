@@ -2,7 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import userRouter from './routes/user.route.js';
-import authRouter from './routes/auth.route.js'
+import authRouter from './routes/auth.route.js';
 // code for secure mongodb connection using enviroment var env
 dotenv.config()
 mongoose.connect(process.env.MONGO)
@@ -38,3 +38,5 @@ app.use((err,req,res,next)=>{
         message
     });
 });
+
+
