@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 import { signInStart,signInSuccess,signInFailure } from '../redux/user/userSlice';
+import OAuth from '../components/OAuth';
 
 export default function SignIn() {
   const [formData,setFormData]=useState({});
@@ -71,7 +72,10 @@ const handleSubmit = async (e)=>
       <input className='border p-3 rounded-lg' onChange={handlechange} type='password' id='password'placeholder='password'/>
       <button className='border p-3 bg-slate-700 text-white rounded-lg hover:opacity-80 disabled:opacity-50'  disabled={loading} onClick={handlechange}  id='button'>SIGN-IN</button>
       {/* {loading ?'Loading':'Sign-Up'} */}
+      <OAuth/>
+    
     </form>
+
     <div className="flex gap-2 mt-5">
       <p>Don't Have an account?</p>
       <Link to={'/sign-up'}>
