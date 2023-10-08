@@ -7,18 +7,19 @@ import {app} from '../firebase'
 import {
   updateUserStart,
   updateUserSuccess,
-  updateUserFailure
+  updateUserFailure,
 } from '../redux/user/userSlice';
 
 import { useDispatch } from 'react-redux'
 
 export default function Profile() {
   const fileRef=useRef(null);
-  const {currentUser}=useSelector((state)=>state.user)
+  const {currentUser,loading,error}=useSelector((state)=>state.user)
   const [file,setFile]=useState(undefined)
   const [filePerc,setFilePerc]=useState(0);
   const [fileUploadError,setFileUploadError]=useState(false);
   const [formData,setformData]=useState({});
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   //initialising dispatch
   const dispatch=useDispatch();
   console.log(formData);
@@ -61,28 +62,29 @@ console.log(formData);
 
 }
 
-const  handleSubmit = async(e)=>{
+const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     dispatch(updateUserStart());
-    const res=await fetch(`api/user/update/${currentUser._id}`
-  ,{
-    method:'POST',
-    headers:{'Content-Type':'application/json',},
-    body:JSON.stringify(formData),
-  });
-  const data=await res.json()
-  if (data.success===false){
-    dispatch(updateUserFailure(data.message));
-    return;
-  }
-  dispatch(updateUserSuccess(data));
-  }
-  catch (error) {
+    const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (data.success === false) {
+      dispatch(updateUserFailure(data.message));
+      return;
+    }
+
+    dispatch(updateUserSuccess(data));
+    setUpdateSuccess(true);
+  } catch (error) {
     dispatch(updateUserFailure(error.message));
   }
-  
-  }
+};
 
 
   return (
@@ -119,10 +121,11 @@ const  handleSubmit = async(e)=>{
     <input defaultValue={currentUser.username} onChange={handleChange}  id='username' type='text' placeholder='username' className='border p-3 rounded-lg'/>
     <input defaultValue={currentUser.email} onChange={handleChange}   id='email' type='email' placeholder='email' className='border p-3 rounded-lg'/>
     <input onChange={handleChange}   id='password' type='password' placeholder='password' className='border p-3 rounded-lg'/>
-    <button 
+    <button
+          disabled={loading}
           className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
         >
-        Update
+          {loading ? 'Loading...' : 'Update'}
         </button>
     </form >
     <div className='flex justify-between mt-5'>
@@ -132,6 +135,10 @@ const  handleSubmit = async(e)=>{
       <span className='text-red-700 cursor-pointer'>
         Sign out
       </span>
+      <p className='text-red-700 mt-5'>{error ? error : ''}</p>
+      <p className='text-green-700 mt-5'>
+        {updateSuccess ? 'User is updated successfully!' : ''}
+      </p>
     </div>
   </div>
     
