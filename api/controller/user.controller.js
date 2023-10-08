@@ -34,3 +34,22 @@ export const updateUser = async (req, res, next) => {
     }
 }
 
+
+export const deleteUser=async(req,res,next)=>{
+//check token
+//req.user.id is the id obtained from jwt from cloud after passing in secret key to mongocloud
+//collected from verify user
+//req.params.id is the id of the user from local storage of logged in user
+if(req.user.id!==req.params.id){
+  return next(errorHandler(401,"U can only delete your own account"))
+}
+//deleting user or  throw error
+try {
+  //mongoose function to delete id
+  await User.findByIdAndDelete(req.params.id)
+  res.clearCookie('access_token');
+  res.status(200).json("User has been deleted");
+} catch (error) {
+  next(error);
+}
+};
