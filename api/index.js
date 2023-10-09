@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
-
+import listingRouter from './routes/listing.route.js'
 import cookieParser from 'cookie-parser';
 
 // code for secure mongodb connection using enviroment var env
@@ -24,7 +24,7 @@ app.listen(3000,()=>{
     console.log('Server is running on 3k!!!!')
 });
 
-
+app.use('/api/listing',listingRouter);
 // code for routing apis 
 
 app.use("/api/user",userRouter)
