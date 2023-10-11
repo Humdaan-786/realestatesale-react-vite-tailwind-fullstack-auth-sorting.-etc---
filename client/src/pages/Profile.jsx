@@ -15,7 +15,7 @@ import {
   signoutUserSuccess,
   signoutUserFailure
 } from '../redux/user/userSlice';
-
+import {Link} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 export default function Profile() {
@@ -173,23 +173,31 @@ const handleSignOut=async()=>{
     <input onChange={handleChange}   id='password' type='password' placeholder='password' className='border p-3 rounded-lg'/>
     <button
           disabled={loading}
-          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'
-        >
+          className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>
           {loading ? 'Loading...' : 'Update'}
-        </button>
+    </button>
     </form >
-    <div className='flex justify-between mt-5'>
+    <div className='flex flex-col  p-3'>
+    <Link to={'/create-listing'}
+          disabled={loading}
+          className='bg-green-700 text-lg flex self-center text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>
+          {loading ? 'Loading...' : 'CREATE LISTING'}
+    </Link>
+    </div>
+    <div className=' justify-between mt-5  flex gap-4'>
       <span onClick={handleDelete} className='text-red-700 cursor-pointer'>
         Delete account
       </span>
       <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>
           Sign out
         </span>
+        </div>
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
       <p className='text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p>
-    </div>
+
+    
   </div>
     
   )}
